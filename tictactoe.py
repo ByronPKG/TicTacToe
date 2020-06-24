@@ -1,3 +1,4 @@
+#! /usr/bin/python3
 #A tic tac toe game
 #Plans: make a two human player version (input error checking, win conditions), then add option to play against computer, then look at graphics libs to make GUI
 #so far this is just the print board function
