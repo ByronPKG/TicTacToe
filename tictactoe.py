@@ -1,17 +1,19 @@
 #! /usr/bin/python3
 #A tic tac toe game
 #Plans: make a two human player version (input error checking, win conditions), then add option to play against computer, then look at graphics libs to make GUI
-#so far this is just the print board function
+#todo: check for win conditions/early draw, a better method for switching players each turn, regex for move input checking
 
-#Make a board struct-like? struct in python?
-#theBoard = {'top-L': ' ', 'top-M': ' ', 'top-R': ' ', 'mid-L': ' ', 'mid-M': ' ', 'mid-R': ' ', 'bot-L': ' ', 'bot-M': ' ', 'bot-R': ' '}
+
+#    theBoard = {'TOP-L': ' ', 'TOP-M': ' ', 'TOP-R': ' ',
+#                'MID-L': ' ', 'MID-M': ' ', 'MID-R': ' ',
+#                'BOT-L': ' ', 'BOT-M': ' ', 'BOT-R': ' '}
 
 def printBoard(board):
-    print(board['top-L'] + '|' + board['top-R'] + '|' + board['top-R'])
+    print(board['TOP-L'] + '|' + board['TOP-M'] + '|' + board['TOP-R'])
     print('-----')
-    print(board['mid-L'] + '|' + board['mid-R'] + '|' + board['mid-R'])
+    print(board['MID-L'] + '|' + board['MID-M'] + '|' + board['MID-R'])
     print('-----')
-    print(board['bot-L'] + '|' + board['bot-R'] + '|' + board['bot-R'])
+    print(board['BOT-L'] + '|' + board['BOT-M'] + '|' + board['BOT-R'])
 
 def chooseSymbol(): #returns symbol chosen for player1, player2 handled by calling function
     while True:
@@ -20,8 +22,16 @@ def chooseSymbol(): #returns symbol chosen for player1, player2 handled by calli
         if player1 == 'X' or player1 == 'O':
             return player1
 
+def isValidMove(board, move): #Returns bool if the move is valid, there space is open
+    if board[move] == ' ':
+        return True
+    else:
+        return False
+
+
 def singleplayer():
     print("Single-player: WIP")
+
 
 def multiplayer():
     player1 = chooseSymbol()
@@ -29,8 +39,26 @@ def multiplayer():
     print("OK, Player 1 is '%s's and Player 2 is '%s's." % (player1, player2))
 
     turn = 0
-    theBoard = {'top-L': ' ', 'top-M': ' ', 'top-R': ' ', 'mid-L': ' ', 'mid-M': ' ', 'mid-R': ' ', 'bot-L': ' ', 'bot-M': ' ', 'bot-R': ' '}
-    printBoard(theBoard)
+    theBoard = {'TOP-L': ' ', 'TOP-M': ' ', 'TOP-R': ' ',
+                'MID-L': ' ', 'MID-M': ' ', 'MID-R': ' ',
+                'BOT-L': ' ', 'BOT-M': ' ', 'BOT-R': ' '}
+    printBoard(theBoard) #displaying the empty board
+
+    while turn < 9: #forces all moves to be made, make a function that checks for an early draw
+        print("Player %d, make your move: ROW-COLUMN=(TOP, MID, BOT)-(L,M,R)" % (turn%2+1))
+        move = str(input()).upper() #need to implement input checking function, look up regex for it
+        if isValidMove(theBoard, move):
+            theBoard[move] = player2 if turn%2 else player1
+            turn += 1   #Move made and turn completed
+        else:
+            print("Invalid move.")
+            continue #Re-prompt for a valid move
+
+        printBoard(theBoard) #print out the new board at "end" of each turn
+#       if turn > 5
+#           winner = findWinner(theBoard)   #a win can only occur after turn 5
+#           if winner is not ' ':
+#
 
 def main():
     print('TIME TO PLAY TIC TAC TOE.')
