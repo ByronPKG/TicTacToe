@@ -79,7 +79,7 @@ def multiplayer():
 
         if turn > 4: #a win can only occur starting turn 5
             if findWinner(theBoard):
-                print("Congratulations, Player %d won!" % (1 if player1Turn else 2))
+                print("Congratulations, Player %d, you won!" % (1 if player1Turn else 2))
                 return None
         player1Turn = not player1Turn
 
