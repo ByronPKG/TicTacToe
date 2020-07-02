@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 #A tic tac toe game
 #Plans: make a two human player version (input error checking, win conditions), then add option to play against computer, then look at graphics libs to make GUI
-#todo: Singleplayer/VS Computer, GUI version
+#todo: Singleplayer/VS Computer, GUI version (Thought about making validMoveRegex more flexible, but with GUI this is not necessary)
 import re
 validMoveRegex = re.compile(r'(TOP|MID|BOT)-(L|M|R)')
 
