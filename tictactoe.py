@@ -37,8 +37,18 @@ def moveInput(player1Turn=True): #default will assume player 1, to call for vs c
             continue
 
 
-def findWinner(): #Not implemented, going to do bulky if blocks, then try to optimize
-    return None
+def findWinner(board): #Return true if there is a winnter on the board
+    rows = ['TOP','MID','BOT']
+    columns = ['-L','-M','-R']
+    for x in range(3):
+        if (board[rows[x]+columns[0]] == board[rows[x]+columns[1]] == rows[x]+columns[2] != ' '): #checks rows
+            return True
+        if (board[rows[0]+columns[x]] == board[rows[1]+columns[x]] == rows[2]+columns[x] != ' '): #checks columns
+            return True
+    if ((board['TOP-L'] == board['MID-M'] == board['BOT-R'] != ' ') or
+       (board['TOP-R'] == board['MID-M'] == board['BOT-L'] != ' ')): #checks diagnols
+       return True
+    return False
 
 def singleplayer():
     print("Single-player: WIP")
@@ -67,10 +77,14 @@ def multiplayer():
 
         printBoard(theBoard) #print out the new board at "end" of each turn
 
-#        if turn > 5:
-#            winner = findWinner(theBoard)   #a win can only occur after turn 5
-#           if winner is not ' ':
+        if turn > 4: #a win can only occur starting turn 5
+            if findWinner(theBoard):
+                print("Congratulations, Player " + str(int(player1Turn + 1)) + "won!")
+                return None
         player1Turn = not player1Turn
+
+    print('Draw!')
+    return None
 
 def main():
     print('TIME TO PLAY TIC TAC TOE.')
